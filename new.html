@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Movie Den.</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: soft;
+}
+
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+    transition: color 0.5s ease;
+}
+
+/* Smooth fade scroll animation */
+.hero {
+    width:100%;
+    height:100vh;
+    background:url('batman.png');
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    padding:40px 60px;
+    transition: background 1s ease, opacity 1s ease, transform 1s ease;
+    opacity:0;
+    transform: translateY(-50px);
+}
+
+body.loaded .hero {
+    opacity:1;
+    transform: translateY(0);
+}
+
+@font-face {
+    font-family: soft ;
+    src: url("LeagueSpartan-Bold.otf");
+}
+
+/* NAV */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    flex-wrap: wrap;
+}
+nav .logo{
+    display:flex;
+    align-items:center;
+    font-size:32px;
+    font-weight:700;
+}
+nav .logo img{
+    width:40px;
+    margin-right:10px;
+}
+nav .navlinks{
+    display:flex;
+    list-style:none;
+    gap:30px;
+    flex-wrap: wrap;
+}
+nav .navlinks a{
+    text-decoration: none;
+    color:white;
+    font-size:16px;
+    transition: 0.3s;
+}
+nav .navlinks a:hover{
+    scale: 1.2;
+}
+nav .icons{
+    display:flex;
+    gap:20px;
+    font-size:22px;
+    cursor:pointer;
+    flex-wrap: wrap;
+}
+.icons a{
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.icons a:hover{
+    scale:1.2;
+}
+
+/* CONTENT */
+.left{
+    width:45%;
+    margin-top:100px;
+}
+.title{
+    font-size:60px;
+    font-weight:900;
+}
+.meta{
+    margin:15px 0;
+    font-size:20px;
+}
+.stars{
+    margin:10px 0;
+    font-size:22px;
+}
+.desc{
+    margin-top:15px;
+    line-height:1.5;
+    width:80%;
+    font-size:16px;
+}
+.btns{
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+}
+.btn{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    cursor:pointer;
+    border-radius:6px;
+    font-weight:700;
+}
+.buy{
+    background:rgb(0, 0, 0);
+    color:white;
+}
+.buy:hover {
+    scale: 1.1;
+    transition: ease 0.5s;
+}
+.shows{
+    background:transparent;
+    border:2px solid white;
+    color:white;
+}
+.shows:hover {
+    scale: 1.1;
+    transition: ease 0.5s;
+}
+.watch{
+    display:flex;
+    align-items:center;
+    margin-top:100px;
+    font-size:18px;
+}
+.watch img{
+    width:35px;
+    margin-right:10px;
+}
+.watch a:hover {
+    scale: 1.2;
+    transition: ease 0.3s;
+}
+
+/* POSTER */
+.poster{
+    position:absolute;
+    right:80px;
+    top:50%;
+    transform:translateY(-50%);
+    transition: opacity 1s ease;
+}
+.poster img{
+    width: 900px;
+    height: 500px;
+    border-radius:6px;
+}
+
+/* HERO SECTION BELOW */
+.heroSection{
+    width: 100vw;
+    height: auto;
+    background-color: black;
+    padding:50px 20px;
+}
+.heroContainer{
+    display:flex;
+    gap:30px;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.heroImages{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    text-align:center;
+    gap: 5px;
+}
+.heroImages img{
+    border-radius:6px;
+    width:150px;
+    height:160px;
+    object-fit: cover;
+}
+.heroImages h2{
+    font-size:16px;
+}
+.heroImages h3{
+    font-size:14px;
+    color:gold;
+}
+
+/* FOOTER */
+.footer {
+    width: 100vw;
+    background: #b51914;
+    color: white;
+    padding: 80px 70px 40px 70px;
+    font-family: "Poppins", sans-serif;
+    display: grid;
+    grid-template-columns: 1.1fr 1.8fr 120px;
+    align-items: start;
+    position: relative;
+}
+.footer-left h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.footer-left .tagline {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.footer-mascot {
+    width: 90px;
+    margin-top: 10px;
+}
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    flex-wrap: wrap;
+    gap:20px;
+}
+.footer-links ul {
+    list-style: none;
+}
+.footer-links li {
+    margin-bottom: 12px;
+}
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: lowercase;
+}
+.footer-links a:hover {
+    opacity: 0.7;
+}
+.popcorn {
+    width: 80px;
+    margin-top: 10px;
+}
+.line {
+    grid-column: 1 / span 3;
+    width: 100%;
+    border-bottom: 2px solid white;
+    margin: 50px 0 30px 0;
+}
+.footer-bottom {
+    grid-column: 1 / span 3;
+    text-align: center;
+}
+.socials a i {
+    font-size: 30px;
+    margin: 0 12px;
+}
+.copy {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* RESPONSIVE */
+@media (max-width:1920px) { .heroContainer { width: 60vw; margin-top: 2vw; } .heroImages { margin-left: 0px; } }
+@media (max-width:1200px){ .poster img{ width: 80%; } .heroContainer { width: 60vw; } }
+@media (max-width:992px){ .title{ font-size:50px; } .meta{ font-size:18px; } .desc{ font-size:15px; } }
+@media (max-width:768px){ .poster{ display:none; } .navlinks a{ font-size:14px; } .icons{ font-size:18px; } .left{ width:100%; text-align:center; margin-top:20px; } .btns{ justify-content:center; flex-wrap:wrap; } .watch{ justify-content:center; } }
+@media (max-width:480px){ .title{ font-size:36px; } .meta{ font-size:14px; } .desc{ font-size:13px; } .navlinks a{ font-size:12px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <nav>
+        <div class="logo">
+            <img src="tvicon.png" />
+            Movie Den.
+        </div>
+
+        <div class="navlinks">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Series</a>
+            <a href="#">Tv shows</a>
+        </div>
+        
+        <div class="icons">
+            <a href="#">☰</a>
+            <a href="#">🔍︎</a>
+            <a href="#">⩍</a>
+            <a href="#">✪</a>
+        </div>
+    </nav>
+
+    <div class="left">
+        <div class="title">Batman Beyond</div>
+        <div class="meta">2022 - Action/Thriller - Film</div>
+        <div class="stars"><span style="color:gold">★★★★☆</span></div>
+        <div class="desc">
+            The Batman is a 2022 American superhero film based on the DC Comics character Batman. Directed by Matt Reeves from a screenplay he wrote with Peter Craig, it is a reboot of the Batman film franchise.
+        </div>
+
+        <div class="btns">
+            <button class="btn buy">BUY TICKET</button>
+            <button class="btn shows">VIEW SHOWS</button>
+        </div>
+
+        <div class="watch">
+            <a style="color:white;text-decoration:none;" href="#">▶ WATCH TRAILER</a>
+        </div>
+    </div>
+
+    <div class="poster">
+        <img src="batposter.png" />
+    </div>
+</div>
+
+<div class="heroSection">
+    <h1> 📺 Recommended for you</h1>
+    <div class="heroContainer">
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+    </div>
+    <br><br>
+    <h1>☀️ Airing this summer </h1>
+    <div class="heroContainer">
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+        <div class="heroImages">
+            <img src="superman.jpg" alt="superman">
+            <h2>Superman</h2>
+            <h3>⭐⭐⭐⭐</h3>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-left">
+        <h2>Movie den</h2>
+        <p class="tagline">your one spot for entertainment</p>
+        <img src="mascot.png" class="footer-mascot" />
+    </div>
+
+    <div class="footer-links">
+        <ul>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">contact us</a></li>
+            <li><a href="#">affiliates</a></li>
+            <li><a href="#">resources</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">contact us</a></li>
+            <li><a href="#">affiliates</a></li>
+            <li><a href="#">resources</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">contact us</a></li>
+            <li><a href="#">affiliates</a></li>
+            <li><a href="#">resources</a></li>
+        </ul>
+    </div>
+
+    <img src="popcorn.png" class="popcorn" />
+
+    <div class="line"></div>
+
+    <div class="footer-bottom">
+        <div class="socials">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="copy">Copyright all rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+(function(){
+  const movies = [
+    {
+      title: "Batman Beyond",
+      meta: "2022 - Action/Thriller - Film",
+      stars: "★★★★☆",
+      desc: "The Batman is a 2022 American superhero film based on the DC Comics character Batman. Directed by Matt Reeves from a screenplay he wrote with Peter Craig, it is a reboot of the Batman film franchise.",
+      bg: "batman.png",
+      poster: "batposter.png",
+      trailer: "#"
+    },
+    {
+      title: "Superman Legacy",
+      meta: "2025 - Action/Fantasy - Film",
+      stars: "★★★★★",
+      desc: "Clark Kent balances being Earth’s greatest hero while searching for his true identity.",
+      bg: "supe.png",
+      poster: "",
+      trailer: "#"
+    },
+    {
+      title: "The Bad Guys 2",
+      meta: "2026 - Animation/Heist - Film",
+      stars: "★★★★☆",
+      desc: "The crew returns for a bigger, crazier heist — but this time, the world is watching.",
+      bg: "badguys.jpg",
+      poster: "",
+      trailer: "#"
+    }
+  ];
+
+  const INTERVAL_MS = 5000;
+
+  function start(){
+    const hero = document.querySelector(".hero");
+    const titleEl = document.querySelector(".title");
+    const metaEl = document.querySelector(".meta");
+    const starsEl = document.querySelector(".stars");
+    const descEl = document.querySelector(".desc");
+    const posterDiv = document.querySelector(".poster");
+    const posterImg = document.querySelector(".poster img");
+    const watchLink = document.querySelector(".watch a");
+    const navLinks = document.querySelectorAll(".navlinks a");
+    const logo = document.querySelector(".logo");
+    const icons = document.querySelectorAll(".icons a");
+    const btns = document.querySelectorAll(".btn");
+
+    function getTextElements(){
+      const arr = [];
+      if(titleEl) arr.push(titleEl);
+      if(metaEl) arr.push(metaEl);
+      if(starsEl) arr.push(starsEl);
+      if(descEl) arr.push(descEl);
+      if(watchLink) arr.push(watchLink);
+      navLinks.forEach(n => arr.push(n));
+      if(logo) arr.push(logo);
+      icons.forEach(i => arr.push(i));
+      return arr;
+    }
+    const textElements = getTextElements();
+
+    let idx = 0;
+    function applyMovie(m){
+      if(hero && m.bg) hero.style.backgroundImage = `url('${m.bg}')`;
+      if(titleEl) titleEl.textContent = m.title ?? "";
+      if(metaEl) metaEl.textContent = m.meta ?? "";
+      if(starsEl){
+        const isThird = m.title === "The Bad Guys 2";
+        starsEl.innerHTML = `<span style="color:${isThird?'black':'gold'}">${m.stars ?? ""}</span>`;
+      }
+      if(descEl) descEl.textContent = m.desc ?? "";
+      if(watchLink) watchLink.href = m.trailer ?? "#";
+
+      if(posterDiv && posterImg){
+        if(m.title === "Batman Beyond" && m.poster){
+          posterDiv.style.display = "block";
+          posterImg.src = m.poster;
+          posterImg.alt = m.title;
+        } else {
+          posterDiv.style.display = "none";
+        }
+      }
+
+      const isThird = m.title === "The Bad Guys 2";
+      textElements.forEach(el => {
+        if(!el) return;
+        el.style.color = isThird ? "black" : "white";
+      });
+
+      btns.forEach(b => b.style.color = "");
+    }
+
+    applyMovie(movies[0]);
+    setInterval(()=>{
+      idx = (idx + 1) % movies.length;
+      applyMovie(movies[idx]);
+    }, INTERVAL_MS);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", ()=>{
+      document.body.classList.add("loaded");
+      start();
+    });
+  } else {
+    document.body.classList.add("loaded");
+    start();
+  }
+})();
+</script>
+
+</body>
+</html>
