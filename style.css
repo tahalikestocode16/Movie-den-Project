@@ -1,0 +1,100 @@
+.heroDays {
+    display: flex;
+    width: 100vw;
+    height: 7vw;
+    margin-left: 7vw;
+    margin-top: 5vh;
+}
+
+
+.airing {
+    display: flex;
+    gap: 10px;
+}
+
+.airing button {
+    color:#fbe6f7 ;
+    background-color: #2f2e48;
+    border: 2px solid #2f2e48;
+    border-radius: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 10vh;
+    font-size: 25px;
+
+}
+.airing #daybtnfri {
+    color: #fbe6f7;
+    background-color: #b51914;
+    border: 2px solid #b51914;
+
+
+}
+
+.daysTxt {
+    margin-left: 7vw;
+    font-size: small;
+    font-weight: lighter;
+}
+
+
+ @media (max-width: 1200px) {
+        .poster img {
+          width: 80%;
+        }
+        .heroContainer {
+          width: 60vw;
+        }
+      }
+      @media (max-width: 992px) {
+        .title {
+          font-size: 50px;
+        }
+        .meta {
+          font-size: 18px;
+        }
+        .desc {
+          font-size: 15px;
+        }
+        .heroDays {
+            width: 200px;
+        }
+      }
+      @media (max-width: 768px) {
+        .poster {
+          display: none;
+        }
+        .navlinks a {
+          font-size: 14px;
+        }
+        .icons {
+          font-size: 18px;
+        }
+        .left {
+          width: 100%;
+          text-align: center;
+          margin-top: 20px;
+        }
+        .btns {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        .watch {
+          justify-content: center;
+        }
+      }
+      @media (max-width: 480px) {
+        .title {
+          font-size: 36px;
+        }
+        .meta {
+          font-size: 14px;
+        }
+        .desc {
+          font-size: 13px;
+        }
+        .navlinks a {
+          font-size: 12px;
+        }
+      }
+

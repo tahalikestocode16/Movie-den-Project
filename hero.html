@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime Dashboard</title>
+    
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0d0d0d;
+    color: white;
+    padding: 20px;
+}
+
+/* ---- Cards Section ---- */
+.cards-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card-group h3 {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.card-item {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+    background: #222;
+}
+
+.card-item .img {
+    width: 100%;
+    height: 130px;
+    background: #333;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* ---- Tabs ---- */
+.tabs-section {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.tabs button {
+    background: #2c2c2c;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.tabs button:hover {
+    background: #5c2aff;
+}
+
+.tabs .active {
+    background: #ff2a6d;
+}
+
+/* ---- Schedule ---- */
+.schedule {
+    margin-top: 25px;
+    list-style: none;
+}
+
+.schedule li {
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    font-size: 1rem;
+}
+
+.schedule li span {
+    color: #ff2a6d;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.schedule small {
+    display: block;
+    color: #aaa;
+    margin-top: 3px;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+    .card-item .img {
+        height: 100px;
+    }
+
+    .tabs button {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+    }
+
+    .schedule li {
+        font-size: 0.9rem;
+    }
+}
+
+
+</style>
+<body>
+    <section class="cards-section">
+        <div class="card-group">
+            <h3>Top Airing</h3>
+            <div class="card-item">
+                <div class="img"></div>
+                <h4>One Piece</h4>
+                <p>Rating: ⭐ 9.1</p>
+            </div>
+        </div>
+
+        <div class="card-group">
+            <h3>Most Popular</h3>
+            <div class="card-item">
+                <div class="img"></div>
+                <h4>GrandBlue</h4>
+                <p>Rating: ⭐ 8.5</p>
+            </div>
+        </div>
+
+        <div class="card-group">
+            <h3>Most Favorite</h3>
+            <div class="card-item">
+                <div class="img"></div>
+                <h4>Demon Slayer</h4>
+                <p>Rating: ⭐ 9.3</p>
+            </div>
+        </div>
+
+        <div class="card-group">
+            <h3>Latest Completed</h3>
+            <div class="card-item">
+                <div class="img"></div>
+                <h4>Jujustsu Kaisen</h4>
+                <p>Completed</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tabs-section">
+        <div class="tabs">
+            <button class="active">Fri</button>
+            <button>Thu</button>
+            <button>Sat</button>
+            <button>Sun</button>
+            <button>Mon</button>
+            <button>Tue</button>
+            <button>Wed</button>
+        </div>
+
+        <ul class="schedule">
+            <li><span>11:00</span> 2020 * Inu to Neko<br> <small>Episode 7</small></li>
+            <li><span>12:00</span> With a Dog AND a Cat<br> <small>Episode 3</small></li>
+            <li><span>13:30</span> Campfire Cooking in Another World<br> <small>Episode 2</small></li>
+            <li><span>15:10</span> Bungou Stray Dogs<br> <small>Episode 7</small></li>
+            <li><span>17:00</span> Tower of God Season 2<br> <small>Episode 4</small></li>
+            <li><span>20:00</span> Higurashi: Go<br> <small>Episode 2</small></li>
+        </ul>
+    </section>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieDen Hero</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background:#000;
+        color:white;
+        overflow-x:hidden;
+    }
+
+    /* HERO SECTION */
+    .hero{
+        width:100%;
+        height:85vh;
+        background:url("superman.jpg") no-repeat center/cover;
+        position:relative;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-end;
+        padding:60px;
+    }
+
+    .hero::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:linear-gradient(to top, #000 30%, transparent 100%);
+        z-index:1;
+    }
+
+    .hero-content{
+        position:relative;
+        z-index:2;
+        max-width:500px;
+    }
+
+    .hero-title{
+        font-size:3rem;
+        font-weight:800;
+        text-shadow:0 0 20px rgba(0,0,0,0.9);
+        margin-bottom:10px;
+    }
+
+    .hero-desc{
+        opacity:0.9;
+        font-size:1rem;
+        margin-bottom:20px;
+    }
+
+    /* BUTTONS */
+    .hero-buttons{
+        display:flex;
+        gap:15px;
+    }
+
+    button{
+        padding:12px 28px;
+        border:none;
+        font-size:1rem;
+        cursor:pointer;
+        border-radius:8px;
+        transition:0.3s ease;
+        font-weight:600;
+    }
+
+    .play{
+        background:white;
+        color:black;
+    }
+    .play:hover{
+        background:#e2e2e2;
+    }
+
+    .details{
+        background:rgba(255,255,255,0.15);
+        backdrop-filter:blur(6px);
+        color:white;
+        border:1px solid rgba(255,255,255,0.25);
+    }
+    .details:hover{
+        background:rgba(255,255,255,0.25);
+    }
+
+    /* SLIDER SECTION */
+    .slider{
+        margin-top:-100px;
+        padding:20px 60px;
+        position:relative;
+        z-index:5;
+    }
+
+    .slider-title{
+        font-size:1.4rem;
+        font-weight:700;
+        margin-bottom:15px;
+    }
+
+    .slider-row{
+        display:flex;
+        gap:18px;
+        overflow-x:auto;
+        padding-bottom:10px;
+        scroll-behavior:smooth;
+    }
+
+    .movie-card{
+        min-width:180px;
+        height:260px;
+        background:url("superman.jpg") no-repeat center/cover;
+        border-radius:10px;
+        flex-shrink:0;
+        position:relative;
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width:900px){
+        .hero{
+            padding:40px;
+            height:75vh;
+        }
+        .hero-title{
+            font-size:2.4rem;
+        }
+        button{
+            padding:10px 20px;
+            font-size:0.9rem;
+        }
+        .movie-card{
+            min-width:150px;
+            height:220px;
+        }
+    }
+
+    @media (max-width:600px){
+        .hero{
+            padding:25px;
+            height:70vh;
+        }
+        .hero-title{
+            font-size:1.9rem;
+        }
+        .hero-desc{
+            font-size:0.85rem;
+        }
+        .hero-buttons{
+            flex-direction:column;
+            width:70%;
+        }
+        button{
+            font-size:0.85rem;
+            padding:10px;
+        }
+        .slider{
+            padding:10px 20px;
+            margin-top:-60px;
+        }
+        .slider-title{
+            font-size:1.1rem;
+        }
+        .movie-card{
+            min-width:130px;
+            height:200px;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">SUPERMAN</h1>
+        <p class="hero-desc">
+            When an ancient threat returns, the world's greatest hero must rise again and face destiny.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="play">► Watch Now</button>
+            <button class="details">More Details</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDER -->
+<section class="slider">
+    <h2 class="slider-title">Recommended for You</h2>
+
+    <div class="slider-row">
+        <div class="movie-card"></div>
+        <div class="movie-card"></div>
+        <div class="movie-card"></div>
+        <div class="movie-card"></div>
+        <div class="movie-card"></div>
+    </div>
+</section>
+
+</body>
+</html>
