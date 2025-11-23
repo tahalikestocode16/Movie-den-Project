@@ -229,6 +229,9 @@
 }
 
 /* -------------------- Top Rated List --------------------- */
+ 
+
+
 .top-rated {
     position: absolute;
     top: 0;
@@ -264,6 +267,32 @@
     font-weight: bold;
     opacity: 0.6;
 }
+
+
+
+/* @media (max-width: 1900px) {
+  /* .top-rated {
+    background-color: rgb(41, 29, 38);
+    transform: translateX(90px);
+  }
+
+
+
+  .card-grid {
+    width: 69vw;
+  } */
+  
+/* 
+
+@media (max-width: 1200px) {
+  .top-rated {
+
+@media (max-width: 1200px) {
+  .top-rated {
+    scale: 0.8;
+    transform:translateX(35px);
+  }
+} */ 
 
 /* ===================== MOBILE BEHAVIOR ==================== */
 @media (max-width: 900px) {
@@ -932,6 +961,223 @@
 }
 
 
+/* Sidebar */
+.notifSidebar {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 260px;
+  height: 100vh;
+  background: #191520;
+  padding: 15px;
+  border-left: 2px solid #49383d;
+  transition: right 0.4s ease;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notifSidebar.show {
+  right: 0;
+}
+
+/* Header row */
+.notifHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notifTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Close button */
+.notifClose {
+  font-size: 1.6rem;
+  color: #ff2a6d;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: 0.2s ease;
+  user-select: none;
+}
+
+.notifClose:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Notification Item */
+.notifItem {
+  background: #222;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.15s ease, border 0.2s ease;
+  cursor: pointer;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.notifItem:hover {
+  transform: scale(1.03);
+  /* border: 1px solid #ff2a6d; */
+}
+
+/* Images */
+.notifItem img {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Text */
+.notifText {
+  font-size: 0.85rem;
+  color: #9d9d9d;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .notifSidebar {
+    width: 210px;
+  }
+
+  .notifItem img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .notifText {
+    font-size: 0.75rem;
+  }
+
+  .notifTitle {
+    font-size: 1rem;
+  }
+}
+
+
+/* Search Sidebar */
+.searchSidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 260px;
+  height: 100vh;
+  background: #0d0d0d;
+  border-left: 2px solid #ff2a6d;
+  padding: 15px;
+  transition: right 0.4s ease;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.searchSidebar.show {
+  right: 0;
+}
+
+/* Header */
+.searchHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchHeader h2 {
+  font-size: 1.2rem;
+  color: #ff2a6d;
+  margin: 0;
+}
+
+/* Close button */
+.searchClose {
+  font-size: 1.6rem;
+  color: #ff2a6d;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: 0.2s ease;
+}
+
+.searchClose:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Search box */
+.searchInput {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ff2a6d44;
+  background: #141414;
+  color: white;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* Search result items */
+.searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.searchItem {
+  background: #141414;
+  border: 1px solid #ff2a6d44;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.searchItem:hover {
+  border-color: #ff2a6d;
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .searchSidebar {
+    width: 210px;
+  }
+
+  .searchHeader h2 {
+    font-size: 1rem;
+  }
+
+  .searchItem {
+    font-size: 0.78rem;
+  }
+}
+
+
+
 
 
     </style>
@@ -952,9 +1198,9 @@
         </div>
 
         <div class="icons">
-          <a href="#">☰</a>
-          <a href="#">🔍︎</a>
-          <a href="#">⩍</a>
+          <a id="bar" href="#">☰</a>
+          <a id="search" href="#">🔍︎</a>
+          <a id="notif" href="#">⩍</a>
           <a id="login"  href="#">✪</a>
         </div>
       </nav>
@@ -994,20 +1240,20 @@
 
     <div class="card-grid">
         <div class="card">
-            <img src="wolverine.jpg"">
-            <h3>Wolverine</h3>
+            <img src="ken.jpg"">
+            <h3>Dandadan : Season 2</h3>
             <p class="stars">★★★★★</p>
         </div>
 
         <div class="card">
-            <img src="jjk.jpg" alt="">
-            <h3>Jujutsu Kaisen: Shibuya </h3>
+            <img src="spiderverse.png" alt="">
+            <h3>Spiderverse : Beyond </h3>
             <p class="stars">★★★☆☆</p>
         </div>
 
         <div class="card">
-            <img src="up.jpg" alt="">
-            <h3>Up - Pixar</h3>
+            <img src="badguys.jpg" alt="">
+            <h3>The Bad Guys 2</h3>
             <p class="stars">★★★★☆</p>
         </div>
 
@@ -1021,7 +1267,13 @@
     <!-- Airing this summer -->
     <h2 class="section-title summer">☀️ Airing this summer..</h2>
 
-    <div class="card-grid">
+     <div class="card-grid"> 
+        <!-- <div class="card">
+            <img src="superleg.jpg" alt="">
+            <h3>Superman Legacy</h3>
+            <p class="stars">★★★★★</p>
+        </div>
+
         <div class="card">
             <img src="superleg.jpg" alt="">
             <h3>Superman Legacy</h3>
@@ -1029,8 +1281,34 @@
         </div>
 
         <div class="card">
-            <img src="spiderverse.png" alt="">
-            <h3>Spiderverse</h3>
+            <img src="superleg.jpg" alt="">
+            <h3>Superman Legacy</h3>
+            <p class="stars">★★★★★</p>
+        </div> -->
+<!-- 
+        <div class="card">
+            <img src="superleg.jpg" alt="">
+            <h3>Superman Legacy</h3>
+            <p class="stars">★★★★★</p>
+        </div>
+
+        <div class="card">
+            <img src="superleg.jpg" alt="">
+            <h3>Superman Legacy</h3>
+            <p class="stars">★★★★★</p>
+        </div> -->
+
+        <div class="card">
+            <img src="superleg.jpg" alt="">
+            <h3>Superman Legacy</h3>
+            <p class="stars">★★★★★</p>
+        </div>
+
+        
+
+        <div class="card">
+            <img src="wolverine.jpg" alt="">
+            <h3>Wolverine : The Last Claw</h3>
             <p class="stars">★★★☆☆</p>
         </div>
 
@@ -1046,6 +1324,7 @@
             <p class="stars">★★★★★</p>
         </div>
     </div>
+
 
     <!-- Top Rated List (desktop right-side) -->
      <div class="topsec">
@@ -1124,18 +1403,29 @@
       </div>
       <!-- top airing  -->
     <!-- ===== CARD SECTION ===== -->
+    
     <section style="margin-left: 2vw; margin-right: 2vw;" class="cards-section">
 
-    <div class="cardbelow">
-        <img src="wolverine.jpg" alt="Image 1">
+      <div class="cardbelow">
+        <img src="ken.jpg" alt="Image 1">
         <div class="card-content">
-            <h3>Wolverine : The Last Claw</h3>
-            <p>Get ready with wolverine to slice and dice</p>
+            <h3>Dandadan : Season 2</h3>
+            <p>Watch as the trio explores the hot springs</p>
+        </div>
+    </div>
+
+    
+
+    <div class="cardbelow">
+        <img src="ken.jpg" alt="Image 1">
+        <div class="card-content">
+            <h3>Dandadan : Season 2</h3>
+            <p>Watch as the trio explores the hot springs</p>
         </div>
     </div>
 
     <div class="cardbelow">
-        <img src="bleach.jpg" alt="Image 2">
+        <img src="badguys.jpg" alt="Image 2">
         <div class="card-content">
             <h3>The Badguys 2</h3>
             <!-- kamal bhi ho yaar -->
@@ -1246,6 +1536,67 @@
     <span class="close-login">&times;</span>
   </div>
 </div>
+
+
+<!-- Notification Sidebar -->
+<div class="notifSidebar" id="notifSidebar">
+  <div class="notifHeader">
+    <h2 class="notifTitle">Notifications</h2>
+    <div class="notifClose" id="notifClose">×</div>
+  </div>
+
+  <div class="notifItem">
+    <img src="wolverine.jpg" alt="" />
+    <div class="notifText">Wolverine S2 Released</div>
+  </div>
+
+  <div class="notifItem">
+    <img src="gumball.jpg" alt="" />
+    <div class="notifText">Gumball Movie is out!</div>
+  </div>
+
+  <div class="notifItem">
+    <img src="ken.jpg" alt="" />
+    <div class="notifText">Dandadan season 2 episode 8</div>
+  </div>
+
+  <div class="notifItem">
+    <img src="badguys.jpg" alt="" />
+    <div class="notifText">Bad guys 2 anniversary special </div>
+  </div>
+
+  <div class="notifItem">
+    <img src="spiderverse.png" alt="" />
+    <div class="notifText">Spider-Verse 3 delayed</div>
+  </div>
+</div>
+
+
+<!-- Search Sidebar -->
+<div id="searchSidebar" class="searchSidebar">
+  <div class="searchHeader">
+    <h2>Search</h2>
+    <div class="searchClose" id="searchClose">×</div>
+  </div>
+
+  <input type="text" id="searchInput" class="searchInput" placeholder="Search..." />
+
+  <div class="searchResults" id="searchResults">
+    <div class="searchItem" data-name="wolverine">Wolverine</div>
+    <div class="searchItem" data-name="badguys2">Badguys 2</div>
+    <div class="searchItem" data-name="spiderverse">Spiderverse</div>
+    <div class="searchItem" data-name="dandadan">Dandadan</div>
+    <div class="searchItem" data-name="superman">Superman</div>
+    <div class="searchItem" data-name="batman">Batman</div>
+    <div class="searchItem" data-name="up the movie">Up (the movie)</div>
+    <div class="searchItem" data-name="jjk">JJK</div>
+  </div>
+</div>
+
+
+
+
+
     <script>
       (function () {
         const movies = [
@@ -1454,6 +1805,42 @@
     }, 1500); // animation duration before closing
   });
    
+
+  // Open sidebar
+document.getElementById("notif").addEventListener("click", function () {
+  document.getElementById("notifSidebar").classList.add("show");
+});
+
+// Close sidebar
+document.getElementById("notifClose").addEventListener("click", function () {
+  document.getElementById("notifSidebar").classList.remove("show");
+});
+
+
+// OPEN search bar
+document.getElementById("search").addEventListener("click", () => {
+  document.getElementById("searchSidebar").classList.add("show");
+});
+
+// CLOSE search bar
+document.getElementById("searchClose").addEventListener("click", () => {
+  document.getElementById("searchSidebar").classList.remove("show");
+});
+
+// SEARCH FILTER
+const searchInput = document.getElementById("searchInput");
+const items = document.querySelectorAll(".searchItem");
+
+searchInput.addEventListener("keyup", () => {
+  const value = searchInput.value.toLowerCase();
+
+  items.forEach(item => {
+    const name = item.dataset.name.toLowerCase();
+    item.style.display = name.includes(value) ? "block" : "none";
+  });
+});
+
+
 
     </script>
   </body>
