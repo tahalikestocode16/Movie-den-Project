@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Trailer</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: soft;
+}
+
+@font-face {
+    font-family: soft;
+    src: url(LeagueSpartan-Bold.otf);
+}
+
+body {
+    background: black;
+    overflow: hidden;
+}
+
+/* FULLSCREEN VIDEO */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+iframe {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+}
+
+/* CONTENT (PC - LEFT SIDE) */
+.content {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    color: white;
+    width: 40%;
+    max-width: 500px;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    opacity: 1;
+    transition: opacity 0.7s linear, font-size 0.3s ease;
+}
+
+/* BUTTONS */
+.controls {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 12px 22px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: #ff2a6d;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s, font-size 0.3s ease, padding 0.3s ease;
+}
+
+button:hover {
+    background: #d51e57;
+    scale: 1.05;
+}
+
+/* Fade animation */
+.fade-out {
+    opacity: 0 !important;
+}
+
+/* ==========================
+   MOBILE / SMALL SCREENS
+   ========================== */
+@media (max-width: 900px) {
+    .content {
+        left: 25px;
+        width: 75%;
+    }
+    .title {
+        font-size: 2rem;
+    }
+    button {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .content {
+        position: fixed;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        text-align: center;
+    }
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .controls {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 450px) {
+    .title {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    .controls {
+        gap: 6px;
+    }
+    button {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        border-radius: 4px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="video-container">
+    <iframe id="ytPlayer"
+        src=""
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<div class="content">
+    <div id="trailerTitle" class="title">Loading...</div>
+    <div class="controls">
+        <button onclick="prevTrailer()">◀ Back</button>
+        <button onclick="nextTrailer()">Next ▶</button>
+        
+        <!-- <a href="index (2).html">
+        <button>Return</button> -->
+</a>
+    </div>
+</div>
+
+<script>
+const trailers = [
+     { title: "Jujutsu Kaisen Season 2", url: "https://www.youtube.com/embed/9OhV3IWUsxE?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0" },
+    { title: "Dandadan Season 2", url: "https://www.youtube.com/embed/Ua4NZ3yW2lk?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0" },
+    { title: "Bad Guys 2", url: "https://www.youtube.com/embed/HvLHYox_Vq8?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0" },
+    { title: "UP (Pixar Movie)", url: "https://www.youtube.com/embed/ORFWdXl_zJ4?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0" },
+    { title: "The Batman", url: "https://www.youtube.com/embed/mqqft2x_Aa4?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0" }
+];
+
+let current = 0;
+let autoTimer;
+const player = document.getElementById("ytPlayer");
+const title = document.getElementById("trailerTitle");
+
+function loadTrailer(index) {
+    clearTimeout(autoTimer);
+    title.classList.add("fade-out");
+
+    setTimeout(() => {
+        player.src = trailers[index].url;
+        title.innerText = trailers[index].title;
+        title.classList.remove("fade-out");
+    }, 600);
+
+    autoTimer = setTimeout(() => { nextTrailer(); }, 40000);
+}
+
+function nextTrailer() {
+    current = (current + 1) % trailers.length;
+    loadTrailer(current);
+}
+
+function prevTrailer() {
+    current = (current - 1 + trailers.length) % trailers.length;
+    loadTrailer(current);
+}
+
+// Start first trailer
+loadTrailer(0);
+</script>
+
+</body>
+</html>

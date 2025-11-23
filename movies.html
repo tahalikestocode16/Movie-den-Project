@@ -1,0 +1,517 @@
+x<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieDen - Movies</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: soft;
+}
+
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
+
+@font-face {
+    font-family: soft;
+    src: url("LeagueSpartan-Bold.otf");
+}
+/* NAVBAR */
+nav {
+    position: absolute; /* On top of hero */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+    z-index: 10;
+    background: rgba(0,0,0,0.3);
+    flex-wrap: wrap;
+    transition: padding 0.3s ease;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    transition: font-size 0.3s ease;
+}
+
+nav .logo img {
+    width: 40px;
+    margin-right: 10px;
+    transition: width 0.3s ease;
+}
+
+nav .navlinks {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+nav .navlinks a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s ease, transform 0.3s ease;
+}
+
+nav .navlinks a:hover {
+    transform: scale(1.2);
+}
+
+nav .icons {
+    display: flex;
+    gap: 20px;
+    font-size: 22px;
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+.icons a {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.icons a:hover {
+    transform: scale(1.2);
+}
+
+/* HERO SECTION */
+.hero{
+    width:100%;
+    height:85vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:60px;
+    transition: background 0.5s ease-in-out;
+    background-size:cover;
+    background-position:center;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, #000 30%, transparent 100%);
+    z-index:1;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:500px;
+    transition: all 0.3s ease;
+}
+
+.hero-title{
+    font-size:3rem;
+    font-weight:800;
+    text-shadow:0 0 20px rgba(0,0,0,0.9);
+    margin-bottom:10px;
+    transition: font-size 0.3s ease;
+}
+
+.hero-desc{
+    opacity:0.9;
+    font-size:1rem;
+    margin-bottom:20px;
+    transition: font-size 0.3s ease;
+}
+
+/* BUTTONS */
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+button{
+    padding:12px 28px;
+    border:none;
+    font-size:1rem;
+    cursor:pointer;
+    border-radius:8px;
+    transition:0.3s ease;
+    font-weight:600;
+}
+
+.play{
+    background:white;
+    color:black;
+}
+.play:hover{
+    background:#e2e2e2;
+}
+
+.details{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(6px);
+    color:white;
+    border:1px solid rgba(255,255,255,0.25);
+}
+.details:hover{
+    background:rgba(255,255,255,0.25);
+}
+
+/* SLIDER SECTION */
+.slider{
+    margin-top:-100px;
+    padding:20px 60px;
+    position:relative;
+    z-index:5;
+}
+
+.slider-title{
+    font-size:1.4rem;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.slider-row{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    scroll-behavior:smooth;
+}
+
+.movie-card{
+    min-width:180px;
+    height:260px;
+    background:url("superman.jpg") no-repeat center/cover;
+    border-radius:10px;
+    flex-shrink:0;
+    position:relative;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+.movie-card:hover{
+    transform: scale(1.05);
+    z-index:2;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width:900px){
+    nav {
+        padding: 8px 30px;
+    }
+    nav .logo {
+        font-size: 26px;
+    }
+    nav .logo img {
+        width: 32px;
+    }
+    nav .navlinks a {
+        font-size: 14px;
+    }
+    nav .icons {
+        font-size: 20px;
+        gap: 15px;
+    }
+
+    .hero{
+        padding:40px;
+        height:75vh;
+    }
+    .hero-title{
+        font-size:2.4rem;
+    }
+    button{
+        padding:10px 20px;
+        font-size:0.9rem;
+    }
+    .movie-card{
+        min-width:150px;
+        height:220px;
+    }
+}
+
+@media (max-width:600px){
+    nav {
+        padding: 6px 20px;
+    }
+    nav .logo {
+        font-size: 22px;
+    }
+    nav .logo img {
+        width: 28px;
+    }
+    nav .navlinks {
+        gap: 15px;
+    }
+    nav .navlinks a {
+        font-size: 12px;
+    }
+    nav .icons {
+        font-size: 18px;
+        gap: 12px;
+    }
+
+    .hero{
+        padding:25px;
+        height:70vh;
+    }
+    .hero-title{
+        font-size:1.9rem;
+    }
+    .hero-desc{
+        font-size:0.85rem;
+    }
+    .hero-buttons{
+        flex-direction:column;
+        width:70%;
+    }
+    button{
+        font-size:0.85rem;
+        padding:10px;
+    }
+    .slider{
+        padding:10px 20px;
+        margin-top:-60px;
+    }
+    .slider-title{
+        font-size:1.1rem;
+    }
+    .movie-card{
+        min-width:130px;
+        height:200px;
+    }
+}
+
+@media (max-width:450px){
+    nav {
+        padding: 5px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav .logo {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    nav .navlinks {
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    nav .navlinks a {
+        font-size: 11px;
+    }
+    nav .icons {
+        font-size: 16px;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .hero-title{
+        font-size:1.5rem;
+    }
+    .hero-desc{
+        font-size:0.75rem;
+    }
+    button{
+        font-size:0.75rem;
+        padding:8px;
+    }
+    .movie-card{
+        min-width:110px;
+        height:170px;
+    }
+}
+
+
+.footer {
+    background: #ff2a6d;
+    color: white;
+    padding: 40px 60px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-left h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.footer-left p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer-right h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.footer-right a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.footer-right a:hover {
+    text-decoration: underline;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    padding-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width:900px){
+    .footer {
+        padding: 30px 40px 20px;
+    }
+    .footer-left h3 {
+        font-size: 1.5rem;
+    }
+    .footer-right h4 {
+        font-size: 1.1rem;
+    }
+    .footer-right a {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width:600px){
+    .footer-content {
+        flex-direction: column;
+    }
+    .footer-left, .footer-right {
+        width: 100%;
+    }
+    .footer-left h3 {
+        font-size: 1.3rem;
+    }
+    .footer-right h4 {
+        font-size: 1rem;
+    }
+    .footer-right a {
+        font-size: 0.9rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav >
+    <div style="margin-top: 3vh;"" class="logo">
+      <img src="tvicon.png" />
+      Movie Den.
+    </div>
+
+    <div style="margin-top: 3vh;" class="navlinks">
+      <a href="final copy 2.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="#">Shows</a>
+      <a href="watch.html">Trailers</a>
+    </div>
+
+    <div style="margin-top: 3vh;" class="icons">
+      <a id="bar" href="#">☰</a>
+      <a id="search" href="#">🔍︎</a>
+      <a id="notif" href="#">⩍</a>
+      <a id="login"  href="#">✪</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <h1 class="hero-title" id="heroTitle">SUPERMAN</h1>
+        <p class="hero-desc" id="heroDesc">
+            When an ancient threat returns, the world's greatest hero must rise again and face destiny.
+        </p>
+        <div class="hero-buttons">
+            <button class="play">► Watch Now</button>
+            <button class="details">More Details</button>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDER -->
+<section class="slider">
+    <h2 style="margin-top: 5vh;" class="slider-title">Recommended for You</h2>
+    <div class="slider-row" id="movieSlider">
+        <!-- Movie cards populated dynamically -->
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Movie Den.</h3>
+            <p>Watch your favorite movies and shows anytime, anywhere.</p>
+        </div>
+        <div class="footer-right">
+            <h4>Quick Links</h4>
+            <a href="index (2).html">Home</a>
+            <a href="movies.html">Movies</a>
+            <a href="#">Shows</a>
+            <a href="watch.html">Trailers</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Movie Den. All rights reserved.
+    </div>
+</footer>
+
+<script>
+// Movie data
+const movies = [
+    { title: "SUPERMAN", desc: "When an ancient threat returns, the world's greatest hero must rise again and face destiny.", img: "superman.jpg" },
+    { title: "BATMAN", desc: "The Dark Knight fights crime in Gotham City with intelligence and strength.", img: "jjk.jpg" },
+    { title: "SPIDERMAN", desc: "A young hero balances high school life with fighting villains in New York City.", img: "spiderverse.png" },
+    { title: "AVENGERS", desc: "Earth's mightiest heroes must unite to stop a cosmic threat.", img: "mermaid.png" },
+    { title: "IRON MAN", desc: "A genius billionaire in an armored suit battles evil and protects the world.", img: "ken.jpg" }
+];
+
+const hero = document.getElementById("hero");
+const heroTitle = document.getElementById("heroTitle");
+const heroDesc = document.getElementById("heroDesc");
+const movieSlider = document.getElementById("movieSlider");
+
+// Populate slider and click functionality
+movies.forEach(movie => {
+    const card = document.createElement("div");
+    card.classList.add("movie-card");
+    card.style.backgroundImage = `url('${movie.img}')`;
+    card.addEventListener("click", () => {
+        hero.style.backgroundImage = `url('${movie.img}')`;
+        heroTitle.innerText = movie.title;
+        heroDesc.innerText = movie.desc;
+    });
+    movieSlider.appendChild(card);
+});
+</script>
+
+</body>
+</html>

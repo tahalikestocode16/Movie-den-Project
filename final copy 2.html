@@ -622,78 +622,92 @@
     }
 }
 
-      /* FOOTER */
-      .footer {
-        width: 100vw;
-        background: #ff2a6d;
-        color: white;
-        padding: 80px 70px 40px 70px;
-        font-family: "Poppins", sans-serif;
-        display: grid;
-        grid-template-columns: 1.1fr 1.8fr 120px;
-        align-items: start;
-        position: relative;
-      }
-      .footer-left h2 {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-      .footer-left .tagline {
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 15px;
-      }
-      .footer-mascot {
-        width: 90px;
-        margin-top: 10px;
-      }
-      .footer-links {
-        display: flex;
-        justify-content: space-around;
-        padding-top: 10px;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-      .footer-links ul {
-        list-style: none;
-      }
-      .footer-links li {
-        margin-bottom: 12px;
-      }
-      .footer-links a {
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
-        text-transform: lowercase;
-      }
-      .footer-links a:hover {
-        opacity: 0.7;
-      }
-      .popcorn {
-        width: 80px;
-        margin-top: 10px;
-      }
-      .line {
-        grid-column: 1 / span 3;
+.footer {
+    background: #ff2a6d;
+    color: white;
+    padding: 40px 60px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-left h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.footer-left p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer-right h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.footer-right a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.footer-right a:hover {
+    text-decoration: underline;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    padding-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width:900px){
+    .footer {
+        padding: 30px 40px 20px;
+    }
+    .footer-left h3 {
+        font-size: 1.5rem;
+    }
+    .footer-right h4 {
+        font-size: 1.1rem;
+    }
+    .footer-right a {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width:600px){
+    .footer-content {
+        flex-direction: column;
+    }
+    .footer-left, .footer-right {
         width: 100%;
-        border-bottom: 2px solid white;
-        margin: 50px 0 30px 0;
-      }
-      .footer-bottom {
-        grid-column: 1 / span 3;
-        text-align: center;
-      }
-      .socials a i {
-        font-size: 30px;
-        margin: 0 12px;
-      }
-      .copy {
-        margin-top: 10px;
-        font-size: 12px;
-        font-weight: 700;
-      }
+    }
+    .footer-left h3 {
+        font-size: 1.3rem;
+    }
+    .footer-right h4 {
+        font-size: 1rem;
+    }
+    .footer-right a {
+        font-size: 0.9rem;
+    }
+}
+
+     
 
       /* RESPONSIVE */
       @media (max-width: 1920px) {
@@ -848,118 +862,7 @@
     font-size: 20px;
   }
 }
- .footer {
-    background: #ff2a6d;       /* pink */
-    padding: 60px 40px 40px;
-    color: white;
-    font-family: "Poppins", sans-serif;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-/* Branding Left */
-.footer-brand h2 {
-    font-size: 34px;
-    margin: 0 0 10px;
-    font-weight: 700;
-}
-
-.footer-brand p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    opacity: 0.9;
-}
-
-.brand-icon {
-    width: 40px;
-    height: auto;
-}
-
-/* Right small icon */
-.side-icon {
-    width: 40px;
-    height: auto;
-}
-
-/* Middle Columns */
-.footer-links {
-    display: flex;
-    gap: 80px;
-    flex-wrap: wrap;
-}
-
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links ul li {
-    margin-bottom: 12px;
-}
-
-.footer-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.footer-line {
-    border: none;
-    border-top: 2px solid white;
-    margin: 40px 0 20px;
-    width: 100%;
-}
-
-.copy-text {
-    text-align: center;
-    font-weight: 600;
-}
-
-
-/* ---------------------- RESPONSIVE ---------------------- */
-@media (max-width: 900px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-links {
-        gap: 40px;
-        justify-content: center;
-    }
-
-    .side-icon,
-    .brand-icon {
-        margin: 20px 0;
-    }
-}
-
-@media (max-width: 600px) {
-    .footer-brand h2 {
-        font-size: 26px;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .footer-links ul li {
-        margin-bottom: 8px;
-    }
-
-    .footer {
-        padding: 40px 20px;
-    }
-}
-
+ 
 
 /* Sidebar */
 .notifSidebar {
@@ -1107,7 +1010,7 @@
 
 .searchHeader h2 {
   font-size: 1.2rem;
-  color: #ff2a6d;
+  color: #ffffff;
   margin: 0;
 }
 
@@ -1191,10 +1094,10 @@
         </div>
 
         <div class="navlinks">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Series</a>
-          <a href="#">Tv shows</a>
+          <a href="final copy 2.html">Home</a>
+          <a href="movies.html">Movies</a>
+          <a href="#"> Shows</a>
+          <a href="watch.html">Trailers</a>
         </div>
 
         <div class="icons">
@@ -1478,49 +1381,25 @@
     </div>
 
     <footer class="footer">
-      <div class="footer-left">
-        <h2>Movie den</h2>
-        <p class="tagline">your one spot for entertainment</p>
-        <img src="mascot.png" class="footer-mascot" />
-      </div>
-
-      <div class="footer-links">
-        <ul>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Contact us</a></li>
-          <li><a href="#">Affiliates</a></li>
-          <li><a href="#">Resources</a></li>
-        </ul>
-        <ul>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">contact us</a></li>
-          <li><a href="#">affiliates</a></li>
-          <li><a href="#">resources</a></li>
-        </ul>
-        <ul>
-          <li><a href="#">about us</a></li>
-          <li><a href="#">contact us</a></li>
-          <li><a href="#">affiliates</a></li>
-          <li><a href="#">resources</a></li>
-        </ul>
-      </div>
-
-      <img src="popcorn.png" class="popcorn" />
-
-      <div class="line"></div>
-
-      <div class="footer-bottom">
-        <div class="socials">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-discord"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
-          <a href="#"><i class="fas fa-envelope"></i></a>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Movie Den.</h3>
+            <p>Watch your favorite movies and shows anytime, anywhere.</p>
         </div>
-        <p class="copy">Copyright all rights reserved.</p>
-      </div>
-    </footer>
-    
+        <div class="footer-right">
+            <h4>Quick Links</h4>
+            <a href="index (2).html">Home</a>
+            <a href="movies.html">Movies</a>
+            <a href="#">Shows</a>
+            <a href="watch.html">Trailers</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Movie Den. All rights reserved.
+    </div>
+</footer>
 
+   
 
 
     <!-- Login Modal -->
