@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ur">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Studio bar + Movie slideshow</title>
+<style>
+:root{
+--sidebar-w:64px;
+--bg:#0f1724;
+--panel:#0b1220;
+--accent:#1f6feb;
+--text:#e6eef8;
+}
+html,body{height:100%; margin:0; font-family: Inter, system-ui, sans-serif; background:linear-gradient(180deg,#071021 0%, #071829 100%); color:var(--text);}
+
+/* Left vertical icon bar */
+.sidebar{
+position:fixed;
+left:12px;
+top:50%;
+transform:translateY(-50%);
+width:var(--sidebar-w);
+display:flex;
+flex-direction:column;
+gap:12px;
+z-index:50;
+}
+.icon-btn{
+width:var(--sidebar-w);
+height:var(--sidebar-w);
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.04);
+cursor:pointer;
+transition:all .18s ease;
+user-select:none;
+box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+.icon-btn:hover{ transform:translateX(6px) scale(1.02); box-shadow: 0 10px 26px rgba(2,6,23,0.75);}
+.icon-btn.active{ background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-color: rgba(255,255,255,0.08); outline: 2px solid rgba(31,111,235,0.14); }
+
+/* small logo/label inside icon */
+.logo{
+font-size:11px;
+line-height:1;
+text-align:center;
+display:block;
+padding:4px;
+color:var(--text);
+font-weight:600;
+letter-spacing:0.2px;
+}
+
+/* Main viewer */
+.container{
+padding-left:110px; /* space for sidebar */
+padding-top:40px;
+padding-right:40px;
+box-sizing:border-box;
+min-height:100vh;
+}
+.viewer{
+max-width:980px;
+margin: 30px auto;
+background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+border-radius:12px;
+padding:20px;
+border:1px solid rgba(255,255,255,0.03);
+box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+display:flex;
+gap:16px;
+align-items:center;
+}
+
+.poster{
+width:320px;
+height:480px;
+border-radius:10px;
+overflow:hidden;
+position:relative;
+flex:0 0 320px;
+background:linear-gradient(180deg,#102030,#081020);
+display:flex;
+align-items:flex-end;
+padding:14px;
+box-shadow: inset 0 -30px 60px rgba(0,0,0,0.45);
+}
+
+.poster .title{
+color:white;
+font-weight:800;
+font-size:20px;
+text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+.poster .year{ font-size:13px; opacity:0.85; margin-top:6px;}
+.poster .poster-badge{
+position:absolute;
+top:10px;
+left:10px;
+padding:6px 8px;
+background:rgba(0,0,0,0.35);
+border-radius:8px;
+font-size:12px;
+backdrop-filter: blur(4px);
+}
+
+.meta{
+flex:1;
+min-height:260px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+.meta .studio{
+font-size:12px;
+opacity:0.8;
+margin-bottom:8px;
+display:inline-block;
+padding:6px 10px;
+border-radius:999px;
+background:rgba(255,255,255,0.02);
+}
+.meta h2{ margin:0; font-size:28px; letter-spacing:0.2px; }
+.meta p{ margin-top:12px; color: #cfe6ff; opacity:0.9; line-height:1.5; }
+
+/* fade transition */
+.fade-enter{ opacity:0; transform:translateY(8px) scale(.995); }
+.fade-enter-active{ transition:opacity .45s ease, transform .45s ease; opacity:1; transform:none; }
+.fade-exit{ opacity:1; transform:none; }
+.fade-exit-active{ opacity:0; transform:translateY(-8px) scale(.995); transition:opacity .35s ease, transform .35s ease; }
+
+/* small controls */
+.controls{ margin-top:14px; display:flex; gap:10px; align-items:center; }
+.btn{ padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:rgba(255,255,255,0.02); cursor:pointer; }
+.speed { font-size:13px; opacity:0.9; }
+
+/* responsive */
+@media (max-width:900px){
+.poster{ width:220px; height:330px; flex:0 0 220px; }
+.viewer{ flex-direction:column; align-items:center; text-align:center; }
+.container{ padding-left:20px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar with small icon-buttons -->
+<div class="sidebar" role="toolbar" aria-label="Studios">
+<button class="icon-btn" data-studio="Marvel" title="Marvel">
+<span class="logo">MARVEL</span>
+</button>
+
+<button class="icon-btn" data-studio="DC" title="DC">
+<span class="logo">DC</span>
+</button>
+
+<button class="icon-btn" data-studio="Pixar" title="Pixar">
+<span class="logo">PIXAR</span>
+</button>
+
+<button class="icon-btn" data-studio="StudioGhibli" title="Studio Ghibli">
+<span class="logo">GHIBLI</span>
+</button>
+
+<button class="icon-btn" data-studio="Universal" title="Universal">
+<span class="logo">UNI</span>
+</button>
+</div>
+
+<!-- Main area -->
+<div class="container">
+<div class="viewer" id="viewer" aria-live="polite">
+<div class="poster" id="poster">
+<div class="poster-badge" id="poster-badge">Now Showing</div>
+<div>
+<div class="title" id="movie-title">Choose a studio</div>
+<div class="year" id="movie-year">—</div>
+</div>
+</div>
+
+<div class="meta">
+<div class="studio" id="studio-name">Studio: —</div>
+<h2 id="movie-heading">Click a logo on the left</h2>
+<p id="movie-desc">Jab aap kisi studio icon pe click karein, to us studio ki movies yahan badi screen pe dikhengi aur har 7 seconds ke baad agla poster aajayega.</p>
+
+<div class="controls">
+<button class="btn" id="prev">Prev</button>
+<button class="btn" id="next">Next</button>
+<div class="speed">Auto rotate: <span id="status">7s</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Data: each studio -> list of movies (title, year, description). Add poster URLs or images if you want.
+const studios = {
+Marvel: [
+{title:"Iron Man", year:2008, desc:"Tony Stark becomes Iron Man—origin of MCU."},
+{title:"The Avengers", year:2012, desc:"Earth's mightiest heroes assemble to stop Loki."},
+{title:"Black Panther", year:2018, desc:"Wakanda's king fights to protect his nation."},
+{title:"Spider-Man: Homecoming", year:2017, desc:"Peter Parker balances high school & hero life."},
+{title:"Guardians of the Galaxy", year:2014, desc:"A ragtag team protect an orb of cosmic importance."}
+],
+DC: [
+{title:"Man of Steel", year:2013, desc:"Superman's modern origin and struggle."},
+{title:"Wonder Woman", year:2017, desc:"Diana leaves Themyscira to fight in WWI."},
+{title:"The Dark Knight", year:2008, desc:"Batman faces the Joker in Gotham."}
+],
+Pixar: [
+{title:"Toy Story", year:1995, desc:"Toys come alive when humans aren't watching."},
+{title:"Inside Out", year:2015, desc:"Emotions guide a girl's life from inside her mind."},
+{title:"Coco", year:2017, desc:"A boy journeys into the Land of the Dead."}
+],
+StudioGhibli: [
+{title:"Spirited Away", year:2001, desc:"A girl trapped in a magical bathhouse works to save her parents."},
+{title:"My Neighbor Totoro", year:1988, desc:"Two sisters meet forest spirits in rural Japan."},
+{title:"Princess Mononoke", year:1997, desc:"A struggle between nature and industrialization."}
+],
+Universal: [
+{title:"Jurassic Park", year:1993, desc:"Dinosaurs brought back to life create chaos."},
+{title:"E.T.", year:1982, desc:"A boy befriends a stranded alien."},
+{title:"Back to the Future", year:1985, desc:"A time-travel adventure with Doc Brown."}
+]
+};
+
+// State
+let currentStudio = null;
+let currentIndex = 0;
+let intervalId = null;
+const ROTATE_MS = 7000; // 7 seconds
+
+// DOM refs
+const btns = document.querySelectorAll('.icon-btn');
+const titleEl = document.getElementById('movie-title');
+const yearEl = document.getElementById('movie-year');
+const headingEl = document.getElementById('movie-heading');
+const descEl = document.getElementById('movie-desc');
+const studioNameEl = document.getElementById('studio-name');
+const posterBadge = document.getElementById('poster-badge');
+const statusEl = document.getElementById('status');
+
+// Update status text
+function updateStatus(){ statusEl.textContent = (intervalId ? (ROTATE_MS/1000 + 's') : 'paused'); }
+
+// Render a movie (with fade)
+function renderMovie(movie){
+// small fade effect applied by toggling classes
+const poster = document.getElementById('poster');
+poster.classList.add('fade-enter');
+// set content (these could be replaced with images if available)
+titleEl.textContent = movie.title;
+yearEl.textContent = movie.year;
+headingEl.textContent = movie.title;
+descEl.textContent = movie.desc;
+studioNameEl.textContent = 'Studio: ' + currentStudio;
+// poster badge could show index
+posterBadge.textContent = `#${currentIndex+1} / ${studios[currentStudio].length}`;
+// ensure reflow so animation applies
+void poster.offsetWidth;
+poster.classList.remove('fade-enter');
+poster.classList.add('fade-enter-active');
+
+// remove active class after animation ends
+setTimeout(()=> {
+poster.classList.remove('fade-enter-active');
+}, 480);
+}
+
+// Start auto-rotation
+function startRotation(){
+stopRotation();
+intervalId = setInterval(()=> {
+nextMovie();
+}, ROTATE_MS);
+updateStatus();
+}
+function stopRotation(){
+if(intervalId) { clearInterval(intervalId); intervalId = null; updateStatus(); }
+}
+
+// Show studio (on click)
+function showStudio(name){
+if(!studios[name] || studios[name].length === 0) return;
+currentStudio = name;
+currentIndex = 0;
+// set active on buttons
+btns.forEach(b => b.classList.toggle('active', b.dataset.studio === name));
+renderMovie(studios[name][currentIndex]);
+startRotation();
+}
+
+function nextMovie(){
+if(!currentStudio) return;
+currentIndex = (currentIndex + 1) % studios[currentStudio].length;
+renderMovie(studios[currentStudio][currentIndex]);
+}
+function prevMovie(){
+if(!currentStudio) return;
+currentIndex = (currentIndex - 1 + studios[currentStudio].length) % studios[currentStudio].length;
+renderMovie(studios[currentStudio][currentIndex]);
+}
+
+// attach listeners to sidebar buttons
+btns.forEach(btn => {
+btn.addEventListener('click', ()=> {
+const studio = btn.dataset.studio;
+showStudio(studio);
+});
+});
+
+// prev/next buttons
+document.getElementById('prev').addEventListener('click', ()=>{
+stopRotation();
+prevMovie();
+});
+document.getElementById('next').addEventListener('click', ()=>{
+stopRotation();
+nextMovie();
+});
+
+// pause rotation when hovering viewer
+const viewer = document.getElementById('viewer');
+viewer.addEventListener('mouseenter', ()=> { stopRotation(); });
+viewer.addEventListener('mouseleave', ()=> { if(currentStudio) startRotation(); });
+
+// optional: start Marvel by default
+// showStudio('Marvel');
+
+// accessibility: keyboard navigation for sidebar (left bar)
+document.addEventListener('keydown', (e)=>{
+if(e.key === "ArrowDown" || e.key === "ArrowUp"){
+// find current focused or active
+let idx = Array.from(btns).findIndex(b => b === document.activeElement);
+if(idx === -1) idx = Array.from(btns).findIndex(b => b.classList.contains('active'));
+if(idx === -1) idx = 0;
+if(e.key === "ArrowDown") idx = (idx + 1) % btns.length;
+else idx = (idx - 1 + btns.length) % btns.length;
+btns[idx].focus();
+e.preventDefault();
+}
+});
+
+// small helper: allow clicking with Enter when focused
+btns.forEach(b => b.addEventListener('keydown', (e)=>{
+if(e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); }
+}));
+
+// show first studio as default (optional)
+// Uncomment below line to auto-open Marvel on load:
+// showStudio('Marvel');
+</script>
+
+</body>
+</html>
